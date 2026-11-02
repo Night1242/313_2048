@@ -215,3 +215,31 @@ hr {
     --k: 0.55;
   }
 }
+
+/* ---- mute button ---- */
+.mute-button {
+  float: right;
+  margin: 8px 10px 0 0;
+  height: 40px;
+  padding: 0 14px;
+  background: var(--cn-red);
+  color: var(--cn-gold);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 3px 0 var(--cn-deep-red);
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.mute-button:hover {
+  background: var(--cn-deep-red);
+}
+
+@media screen and (max-width: 520px) {
+  .mute-button {
+    margin-top: 0;
+    height: 34px;
+    padding: 0 10px;
+  }
+}
