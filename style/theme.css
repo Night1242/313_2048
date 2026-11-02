@@ -1,0 +1,217 @@
+/* ==========================================================
+   中国风 theme for 2048: red & gold, national flag background,
+   Chinese numerals on the tiles, Chinese text.
+   Loads after main.css, so these rules override the originals.
+   ========================================================== */
+
+:root {
+  --cn-red: #DE2910;
+  --cn-deep-red: #A8190B;
+  --cn-gold: #FFDE00;
+  --cn-cream: #FFF7D6;
+  --cn-ink: #7A1A0C;
+  --k: 1; /* tile text scale, shrunk on phones */
+}
+
+/* the national flag is the page background */
+html {
+  background: var(--cn-red) url("flag.svg") center / cover no-repeat fixed;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  color: var(--cn-ink);
+}
+
+body {
+  background: transparent;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  color: var(--cn-ink);
+}
+
+/* the content sits on a cream card so text stays readable over the flag */
+.container {
+  box-sizing: border-box;
+  width: 560px;
+  padding: 24px 26px 28px;
+  background: var(--cn-cream);
+  border: 4px solid var(--cn-gold);
+  border-radius: 14px;
+  box-shadow: 0 12px 0 var(--cn-deep-red), 0 18px 40px rgba(60, 0, 0, 0.45);
+}
+
+h1.title {
+  color: var(--cn-red);
+  font-family: "STKaiti", "KaiTi", "Kaiti SC", "Noto Serif SC", serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 var(--cn-gold), 4px 4px 0 var(--cn-deep-red);
+}
+
+a {
+  color: var(--cn-red);
+}
+
+hr {
+  border-bottom: 1px solid var(--cn-red);
+}
+
+/* score boxes */
+.score-container, .best-container {
+  background: var(--cn-red);
+  color: var(--cn-gold);
+  border-radius: 8px;
+  box-shadow: 0 3px 0 var(--cn-deep-red);
+  min-width: 72px;
+}
+
+.score-container:after, .best-container:after {
+  color: var(--cn-cream);
+}
+
+.score-container:after {
+  content: "分数";
+}
+
+.best-container:after {
+  content: "最高分";
+}
+
+.score-container .score-addition,
+.best-container .score-addition {
+  color: var(--cn-red);
+}
+
+/* buttons */
+.restart-button,
+.game-container .game-message a {
+  background: var(--cn-red);
+  color: var(--cn-gold);
+  border-radius: 8px;
+  box-shadow: 0 3px 0 var(--cn-deep-red);
+  font-weight: bold;
+}
+
+.restart-button:hover,
+.game-container .game-message a:hover {
+  background: var(--cn-deep-red);
+}
+
+/* board */
+.game-container {
+  background: #8E1A0E;
+  border-radius: 10px;
+  box-shadow: 0 0 0 4px var(--cn-gold);
+}
+
+.grid-cell {
+  background: #A62416;
+  border-radius: 6px;
+}
+
+/* ---- tiles -------------------------------------------------
+   The real number is hidden (font-size: 0) and a Chinese numeral
+   is drawn with ::before, so the game's text logic is untouched.
+   ---------------------------------------------------------- */
+.tile .tile-inner {
+  --k: 1;
+  border-radius: 6px;
+  color: var(--cn-deep-red);
+  font-family: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  font-weight: 900;
+  font-size: 0 !important;
+  position: relative;
+  box-shadow: none;
+}
+
+.tile .tile-inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: pre-line;
+  line-height: 1.15;
+  font-size: calc(var(--fs, 46px) * var(--k));
+}
+
+/* numerals: text, size, colours */
+.tile.tile-2 .tile-inner      { --fs: 50px; background: #FFF6C7; }
+.tile.tile-2 .tile-inner::before { content: "二"; }
+
+.tile.tile-4 .tile-inner      { --fs: 50px; background: #FFEA8A; }
+.tile.tile-4 .tile-inner::before { content: "四"; }
+
+.tile.tile-8 .tile-inner      { --fs: 50px; background: #FFD84D; }
+.tile.tile-8 .tile-inner::before { content: "八"; }
+
+.tile.tile-16 .tile-inner     { --fs: 46px; background: #FFC52E; }
+.tile.tile-16 .tile-inner::before { content: "十六"; }
+
+.tile.tile-32 .tile-inner     { --fs: 32px; background: #FFAE2B; }
+.tile.tile-32 .tile-inner::before { content: "三十二"; }
+
+.tile.tile-64 .tile-inner     { --fs: 32px; background: #F7891F; color: var(--cn-cream); }
+.tile.tile-64 .tile-inner::before { content: "六十四"; }
+
+.tile.tile-128 .tile-inner    { --fs: 30px; background: #F0622A; color: var(--cn-cream); }
+.tile.tile-128 .tile-inner::before { content: "一百\A二十八"; }
+
+.tile.tile-256 .tile-inner    { --fs: 30px; background: #E23A1E; color: var(--cn-cream); }
+.tile.tile-256 .tile-inner::before { content: "二百\A五十六"; }
+
+.tile.tile-512 .tile-inner    { --fs: 30px; background: #C92212; color: var(--cn-gold); }
+.tile.tile-512 .tile-inner::before { content: "五百\A一十二"; }
+
+.tile.tile-1024 .tile-inner   { --fs: 23px; background: #A8150A; color: var(--cn-gold);
+                                box-shadow: 0 0 0 2px var(--cn-gold) inset; }
+.tile.tile-1024 .tile-inner::before { content: "一千\A零二十四"; }
+
+.tile.tile-2048 .tile-inner   { --fs: 23px; background: var(--cn-gold); color: var(--cn-red);
+                                box-shadow: 0 0 0 3px #fff, 0 0 22px 6px rgba(255, 222, 0, 0.7); }
+.tile.tile-2048 .tile-inner::before { content: "二千\A零四十八"; }
+
+.tile.tile-super .tile-inner  { --fs: 30px; background: #5C0600; color: var(--cn-gold);
+                                box-shadow: 0 0 0 3px var(--cn-gold); }
+.tile.tile-super .tile-inner::before { content: "超\A级"; }
+
+/* win / lose overlay */
+.game-container .game-message {
+  background: rgba(255, 247, 214, 0.94);
+}
+
+.game-container .game-message.game-won {
+  background: rgba(255, 222, 0, 0.94);
+}
+
+.game-container .game-message.game-over {
+  background: rgba(142, 26, 14, 0.94);
+}
+
+.game-container .game-message p {
+  color: var(--cn-red);
+  font-weight: 900;
+}
+
+.game-container .game-message.game-won p {
+  color: var(--cn-deep-red);
+}
+
+.game-container .game-message.game-over p {
+  color: var(--cn-gold);
+}
+
+/* ---- phones ---- */
+@media screen and (max-width: 520px) {
+  .container {
+    width: auto;
+    padding: 14px;
+    border-width: 3px;
+  }
+
+  .tile .tile-inner {
+    --k: 0.55;
+  }
+}
